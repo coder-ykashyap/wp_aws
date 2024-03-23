@@ -7,8 +7,8 @@ require("dotenv").config();
 const app = express();
 
 // Initialize the browser outside of the route handlers
-let browser;
-let page;
+var browser;
+var page;
 
 (async () => {
   browser = await puppeteer.launch({
@@ -23,7 +23,7 @@ let page;
       process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
-    headless: false,
+    headless: true,
   });
   page = await browser.newPage();
 })();

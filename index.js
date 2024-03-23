@@ -45,8 +45,9 @@ app.get("/qr-code", async (req, res) => {
 
     // console.log("\n\n", qrCodeUrl, "\n\n");
 
-    res.send(qrCodeUrl);
-    // await page.screenshot({ path: "./screenshot.png" });
+    await page.screenshot({ path: "./screenshot.png" });
+    res.sendFile("./screenshot.png");
+    
 
     // const filePath = path.join(__dirname, "screenshot.png");
 
@@ -106,6 +107,6 @@ app.get("/sms", async (req, res) => {
   }
 });
 
-app.listen(1000 || process.env.PORT, () => {
-  console.log("Server is running on port 1000");
+app.listen(3000 || process.env.PORT, () => {
+  console.log("Server is running on port 3000");
 });

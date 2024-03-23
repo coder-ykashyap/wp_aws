@@ -23,8 +23,9 @@ var page;
       process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
-    headless: true,
+    headless: false,
   });
+  console.log("Browser Launched !");
   page = await browser.newPage();
 })();
 
@@ -32,22 +33,24 @@ app.get("/qr-code", async (req, res) => {
   console.log("called");
   try {
     await page.goto("https://web.whatsapp.com");
+    console.log("Wp web Opened");
 
     // Wait for QR code to appear
     // await page.waitForSelector(".W3myC");
-    await new Promise((resolve) => setTimeout(resolve, 30000));
+    await new Promise((resolve) => setTimeout(resolve, 15000));
     // await page.waitForNavigation();
 
-    const qrCodeUrl = await page.evaluate(() => {
-      const qrCodeElement = document.querySelector("canvas");
-      return qrCodeElement.toDataURL();
-    });
+    // const qrCodeUrl = await page.evaluate(() => {
+    //   console.log("qr ki photo leli hai");
+    //   const qrCodeElement = document.querySelector("canvas");
+    //   // return qrCodeElement.toDataURL();
+    // });
 
     // console.log("\n\n", qrCodeUrl, "\n\n");
+    // await page.waitForSelector("canvas")
 
     await page.screenshot({ path: "./screenshot.png" });
-    res.sendFile("./screenshot.png");
-    
+    res.sendFile(path.join(__dirname , "./screenshot.png"));
 
     // const filePath = path.join(__dirname, "screenshot.png");
 
